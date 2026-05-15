@@ -5,7 +5,274 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>수학교실 랜딩페이지</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;40<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>수학교실 랜딩페이지</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: #f8fafc;
+        }
+        .fade-in {
+            animation: fadeIn 0.4s ease-out forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .tab-active {
+            background-color: #4f46e5;
+            color: white;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+        }
+        .tab-inactive {
+            background-color: #f1f5f9;
+            color: #64748b;
+        }
+        .unit-active {
+            border-left: 5px solid #4f46e5;
+            background-color: #eef2ff;
+            color: #4338ca;
+            font-weight: 700;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+    <header class="bg-white border-b border-gray-100 sticky top-0 z-50 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 py-4 sm:px-6 lg:px-8 flex justify-between items-center">
+            <!-- 가로로 긴 로고 영역 -->
+            <div class="flex items-center">
+                <div class="w-48 sm:w-72 h-16 sm:h-20 bg-white flex items-center justify-center overflow-hidden border border-gray-50 rounded-xl">
+                    <img src="./images/logo.png" alt="수학 교실 로고" class="w-full h-full object-contain" onerror="this.src='https://placehold.co/600x150/ffffff/4f46e5?text=MATH+CLASS'">
+                </div>
+            </div>
+            
+            <!-- 수정된 상담하기 버튼 -->
+            <button onclick="goToConsultation()" class="flex items-center gap-2 bg-amber-400 hover:bg-amber-500 text-amber-950 font-bold py-3 px-6 rounded-2xl transition-all shadow-md active:scale-95">
+                <i class="fa-solid fa-headset"></i>
+                <span class="hidden sm:inline">선생님과 상담하기</span>
+                <span class="sm:hidden">상담하기</span>
+            </button>
+        </div>
+    </header>
+
+    <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full flex flex-col lg:flex-row gap-8">
+        
+        <!-- 사이드바: 학년 및 단원 선택 -->
+        <aside class="w-full lg:w-80 flex flex-col gap-6 shrink-0">
+            <div class="bg-white p-2 rounded-3xl shadow-sm border border-gray-100 flex gap-2">
+                <button id="btn-grade1" onclick="changeGrade(1)" class="flex-1 py-3 rounded-2xl transition-all font-bold tab-active">1학년</button>
+                <button id="btn-grade2" onclick="changeGrade(2)" class="flex-1 py-3 rounded-2xl transition-all font-bold tab-inactive">2학년</button>
+            </div>
+
+            <div class="bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden">
+                <div class="px-6 py-4 bg-gray-50/50 border-b border-gray-100">
+                    <h2 class="text-xs font-bold text-gray-400 uppercase tracking-widest">학습 단원 목록</h2>
+                </div>
+                <nav id="unit-list" class="flex flex-col">
+                    <!-- JS로 동적 생성됨 -->
+                </nav>
+            </div>
+        </aside>
+
+        <section id="content-container" class="flex-grow space-y-6 fade-in">
+            <!-- 타이틀 영역 -->
+            <div class="bg-indigo-600 rounded-[2rem] p-8 sm:p-12 text-white relative overflow-hidden shadow-xl shadow-indigo-100">
+                <div class="relative z-10">
+                    <span id="display-id" class="inline-block px-3 py-1 bg-white/20 backdrop-blur-md rounded-full text-xs font-bold mb-4">단원 1-1</span>
+                    <h2 id="display-title" class="text-3xl sm:text-4xl font-black mb-3">단원 제목</h2>
+                    <p id="display-subtitle" class="text-indigo-100 text-lg font-medium opacity-90">서브 타이틀</p>
+                </div>
+                <div class="absolute -right-4 -bottom-4 opacity-10">
+                    <i class="fa-solid fa-shapes text-[12rem]"></i>
+                </div>
+            </div>
+
+            <!-- 수업 3단계 카드 -->
+            <div class="grid grid-cols-1 gap-6">
+                <!-- 1. 도입 -->
+                <div class="bg-white rounded-[2rem] p-8 border border-gray-100 shadow-sm">
+                    <div class="flex items-center gap-4 mb-6">
+                        <div class="w-12 h-12 rounded-2xl bg-orange-100 text-orange-600 flex items-center justify-center text-xl">
+                            <i class="fa-solid fa-lightbulb"></i>
+                        </div>
+                        <h3 class="text-xl font-black text-gray-800">1. 생각 열기 (수업 도입)</h3>
+                    </div>
+                    <div id="display-hook" class="prose prose-indigo max-w-none text-gray-600 leading-relaxed text-lg">
+                        <!-- 내용 -->
+                    </div>
+                </div>
+
+                <!-- 2. 개념 -->
+                <div class="bg-white rounded-[2rem] p-8 border border-gray-100 shadow-sm relative">
+                    <div class="flex items-center gap-4 mb-6">
+                        <div class="w-12 h-12 rounded-2xl bg-blue-100 text-blue-600 flex items-center justify-center text-xl">
+                            <i class="fa-solid fa-book-open"></i>
+                        </div>
+                        <h3 class="text-xl font-black text-gray-800">2. 핵심 쏙쏙 (개념 설명)</h3>
+                    </div>
+                    <div class="flex flex-col md:flex-row gap-8">
+                        <div class="flex-grow">
+                            <div id="display-keywords" class="flex flex-wrap gap-2 mb-6">
+                                <!-- 키워드 -->
+                            </div>
+                            <div id="display-concept" class="text-gray-600 leading-relaxed text-lg">
+                                <!-- 내용 -->
+                            </div>
+                        </div>
+                        <div class="w-full md:w-64 shrink-0 bg-slate-50 rounded-3xl p-6 border border-slate-100 flex flex-col items-center justify-center text-center">
+                            <div id="display-visual" class="text-indigo-500 font-bold text-sm">
+                                <!-- 시각화 -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3. 마무리 -->
+                <div class="bg-emerald-50 rounded-[2rem] p-8 border border-emerald-100 shadow-sm">
+                    <div class="flex items-center gap-4 mb-6">
+                        <div class="w-12 h-12 rounded-2xl bg-emerald-500 text-white flex items-center justify-center text-xl shadow-lg shadow-emerald-200">
+                            <i class="fa-solid fa-check"></i>
+                        </div>
+                        <h3 class="text-xl font-black text-gray-800">3. 정리 및 다음 시간 예고</h3>
+                    </div>
+                    <div id="display-wrapup" class="bg-white rounded-2xl p-6 text-gray-700 font-medium mb-6 border border-emerald-100 shadow-inner">
+                        <!-- 내용 -->
+                    </div>
+                    <div class="flex items-center gap-3 text-emerald-700 font-bold bg-emerald-100/50 p-4 rounded-xl">
+                        <i class="fa-solid fa-rocket"></i>
+                        <span>다음 시간: </span>
+                        <span id="display-next">내용</span>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+    <script>
+        const mathData = {
+            1: [
+                {
+                    id: '1-1',
+                    title: '소인수분해',
+                    subtitle: '숫자들의 숨겨진 DNA를 찾아라! 🧬',
+                    hook: '<strong>"세상에서 가장 안전한 암호는 어떻게 만들어질까?"</strong><br>모든 숫자는 더 이상 쪼개지지 않는 기본 블록(소수)들로 만들어졌습니다. 그 블록의 정체를 파헤쳐 봅시다.',
+                    keywords: ['소수', '합성수', '소인수', '소인수분해'],
+                    concept: '자연수를 소수들만의 곱으로 나타내는 것을 <strong>소인수분해</strong>라고 합니다. 숫자의 성질을 파악하는 가장 기초적인 단계입니다.',
+                    visual: '<i class="fa-solid fa-network-wired text-4xl mb-3"></i><br>가지치기(Tree) 모델',
+                    wrapup: '모든 자연수(1 제외)는 소수들의 곱으로 단 한 가지 방법으로만 분해됩니다.',
+                    next: '최대공약수와 최소공배수의 성질'
+                },
+                {
+                    id: '1-2',
+                    title: '정수와 유리수',
+                    subtitle: '0보다 작은 세상으로의 초대 ❄️',
+                    hook: '지하 주차장, 겨울철 기온, 통장 잔고... 0보다 작은 숫자가 필요한 순간들은 언제일까요?',
+                    keywords: ['양수', '음수', '절댓값', '수직선'],
+                    concept: '0을 기준으로 서로 반대되는 성질을 가진 수를 양수(+)와 음수(-)로 표현합니다. 수직선을 통해 수의 크기를 비교해 봅시다.',
+                    visual: '<i class="fa-solid fa-arrows-left-right text-4xl mb-3"></i><br>수직선 이미지',
+                    wrapup: '절댓값은 0에서부터의 거리를 의미하며, 항상 0 또는 양수입니다.',
+                    next: '정수와 유리수의 덧셈과 뺄셈'
+                }
+            ],
+            2: [
+                {
+                    id: '2-1',
+                    title: '유리수와 순환소수',
+                    subtitle: '끝없이 반복되는 숫자의 비밀 ♾️',
+                    hook: '1을 3으로 나누면 0.333... 끝이 나지 않죠? 이런 숫자들은 수학적으로 어떻게 다룰까요?',
+                    keywords: ['유한소수', '순환소수', '순환마디'],
+                    concept: '소수점 아래의 어떤 자리부터 일정한 숫자의 배열이 끝없이 되풀이되는 소수를 <strong>순환소수</strong>라고 합니다.',
+                    visual: '<i class="fa-solid fa-repeat text-4xl mb-3"></i><br>무한 반복 구조',
+                    wrapup: '모든 유리수는 유한소수 또는 순환소수로 나타낼 수 있습니다.',
+                    next: '순환소수를 분수로 나타내기'
+                },
+                {
+                    id: '2-2',
+                    title: '일차함수와 그래프',
+                    subtitle: '변화하는 세상을 직선으로 표현하다 📈',
+                    hook: '택시 기본요금과 거리당 추가 요금의 관계를 그림으로 그릴 수 있을까요?',
+                    keywords: ['기울기', 'x절편', 'y절편', '직선의 방정식'],
+                    concept: 'y가 x에 관한 일차식으로 나타나는 함수를 <strong>일차함수</strong>라고 하며, 그 그래프는 직선 모양입니다.',
+                    visual: '<i class="fa-solid fa-chart-line text-4xl mb-3"></i><br>직선 그래프 모델',
+                    wrapup: '기울기와 y절편만 알면 좌표평면 위에 완벽한 직선을 그릴 수 있습니다.',
+                    next: '일차함수와 일차방정식의 관계'
+                }
+            ]
+        };
+
+        let currentGrade = 1;
+        let currentUnitId = '1-1';
+
+        function changeGrade(grade) {
+            currentGrade = grade;
+            currentUnitId = mathData[grade][0].id;
+            
+            document.getElementById('btn-grade1').className = `flex-1 py-3 rounded-2xl transition-all font-bold ${grade === 1 ? 'tab-active' : 'tab-inactive'}`;
+            document.getElementById('btn-grade2').className = `flex-1 py-3 rounded-2xl transition-all font-bold ${grade === 2 ? 'tab-active' : 'tab-inactive'}`;
+            
+            render();
+        }
+
+        function render() {
+            const list = document.getElementById('unit-list');
+            list.innerHTML = '';
+            mathData[currentGrade].forEach(unit => {
+                const btn = document.createElement('button');
+                const isActive = unit.id === currentUnitId;
+                btn.className = `w-full text-left px-6 py-4 transition-all border-b border-gray-50 text-sm ${isActive ? 'unit-active' : 'text-gray-500 hover:bg-gray-50'}`;
+                btn.innerHTML = `<span class="opacity-50 mr-2">${unit.id}</span> ${unit.title}`;
+                btn.onclick = () => {
+                    currentUnitId = unit.id;
+                    render();
+                };
+                list.appendChild(btn);
+            });
+
+            const data = mathData[currentGrade].find(u => u.id === currentUnitId);
+            const container = document.getElementById('content-container');
+            
+            container.classList.remove('fade-in');
+            void container.offsetWidth; 
+            container.classList.add('fade-in');
+
+            document.getElementById('display-id').innerText = `단원 ${data.id}`;
+            document.getElementById('display-title').innerText = data.title;
+            document.getElementById('display-subtitle').innerText = data.subtitle;
+            document.getElementById('display-hook').innerHTML = data.hook;
+            document.getElementById('display-concept').innerHTML = data.concept;
+            document.getElementById('display-visual').innerHTML = data.visual;
+            document.getElementById('display-wrapup').innerHTML = data.wrapup;
+            document.getElementById('display-next').innerText = data.next;
+
+            // 키워드 렌더링
+            const kwContainer = document.getElementById('display-keywords');
+            kwContainer.innerHTML = '';
+            data.keywords.forEach(kw => {
+                const span = document.createElement('span');
+                span.className = 'px-3 py-1 bg-blue-50 text-blue-600 rounded-full text-xs font-bold border border-blue-100';
+                span.innerText = `#${kw}`;
+                kwContainer.appendChild(span);
+            });
+        }
+
+        // 상담하기 버튼 클릭 시 지정된 URL로 이동
+        function goToConsultation() {
+            const url = "https://script.google.com/macros/s/AKfycbwJSVO1wJtU4twkmkmRimI-d0fbwzcyCxgSp4S7CXEXY_1YF8S-OT86C8VfT79cP_dOaw/exec";
+            // 새 창에서 열기
+            window.open(url, '_blank');
+        }
+
+        window.onload = () => render();
+    </script>
+</body>
+</html>0;500;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         body {
